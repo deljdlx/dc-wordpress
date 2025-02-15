@@ -1,0 +1,26 @@
+services:
+  wordpress:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - "./src:/var/www/html"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.wordpress.rule=Host(\"${WP_DOMAIN}\")"
+      - "traefik.http.routers.wordpress.entrypoints=websecure"
+      - "traefik.http.routers.wordpress.tls.certresolver=myresolver"
+    networks:
+      web:
+        priority: 100
+      global:
+        priority: 50
+networks:
+  web:
+    name: web
+    external: true
+  global:
+    name: global
+    external: true
