@@ -63,7 +63,7 @@ else
     wp option update home "https://${WP_DOMAIN}" --allow-root
 fi
 
-# Installer et activer des plugins si spécifiés
+# Install plugins
 if [ -n "$WP_PLUGINS" ]; then
     echo "🔌 Plugins installation : $WP_PLUGINS"
     for plugin in $WP_PLUGINS; do
@@ -71,8 +71,14 @@ if [ -n "$WP_PLUGINS" ]; then
     done
 fi
 
+echo "🔧 chmod..."
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+chown -R www-data:www-data wp-content
+
+
 
 echo "🚀 WordPress ready : https://${WP_DOMAIN}"
 
-# Lancer Apache en foreground
+# Launch apache
 exec apache2-foreground
