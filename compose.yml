@@ -1,5 +1,6 @@
 services:
   wordpress:
+    container_name: wordpress
     build: .
     restart: always
     env_file:
@@ -22,5 +23,5 @@ networks:
     name: web
     external: true
   global:
-    name: global
+    name: mariadb
     external: true

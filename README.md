@@ -1,1 +1,1 @@
-# dc-wordpress
+# Docker compose Wordpress
