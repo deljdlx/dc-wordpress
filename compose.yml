@@ -1,7 +1,7 @@
 services:
   wordpress:
     container_name: wordpress
-    build: .
+    build: ./compose
     restart: always
     env_file:
       - .env
